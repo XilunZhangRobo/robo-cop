@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Robo-COP learns from robot deployment by coordinating a policy and the orchestration that uses it.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Robo-COP — Co-Evolving Robot Orchestrators and Policies</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d3936'/%3E%3Cpath d='M17 32a15 15 0 0 1 26-10m4 10a15 15 0 0 1-26 10' fill='none' stroke='%23e4a578' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%23fff'/%3E%3C/svg%3E">
+  <meta property="og:title" content="Robo-COP — Learning after deployment">
+  <meta property="og:description" content="Co-Evolving Robot Orchestrators and Policies through Deployment. Research from Stanford University and NVIDIA Research.">
+  <meta name="citation_title" content="Co-Evolving Robot Orchestrators and Policies through Deployment">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.09228">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="paper.css">
+  <script defer src="trace-data.js"></script>
+  <script defer src="curves.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="pipeline.js"></script>
+  <script defer src="video-controls.js"></script>
+  
+</head>
+<body>
+  <a class="skip-link" href="#method">Skip to content</a>
+  <header class="site-header">
+    <div class="shell nav-row">
+      <a class="wordmark" href="#top">ROBO<span>·</span>COP</a>
+      <nav aria-label="Page sections">
+        <a href="#method">Method</a><a href="#results">Results</a><a href="#simulation">Deployment</a><a href="#real-world">Videos</a><a href="#citation">Cite</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Robo-COP project introduction">
+      <div class="shell hero-content">
+        <p class="overline">Robot learning · arXiv 2026</p>
+        <h1>Robo-COP<span>Co-Evolving Robot Orchestrators and<br class="desktop-break"> Policies through Deployment</span></h1>
+        <p class="authors">Xilun Zhang <span>·</span> Maggie Wang <span>·</span> Erik Bauer <span>·</span> Hong-Xing Yu<br> Huang Huang <span>·</span> Jiajun Wu <span>·</span> Marco Pavone</p>
+        <p class="affiliations">Stanford University &nbsp; / &nbsp; NVIDIA Research</p>
+        <div class="hero-actions"><a class="button button-dark" href="https://arxiv.org/abs/2610.09228">Read the paper <span aria-hidden="true">↗</span></a><a class="button" href="https://arxiv.org/pdf/2610.09228">PDF <span aria-hidden="true">↗</span></a><a class="button" href="#simulation">Explore deployment <span aria-hidden="true">↓</span></a></div>
+        <p class="hero-intro">A robot should improve with experience.<br>Robo-COP learns from deployment to update both its policy<br class="desktop-break"> and the orchestrator that decides how to use it.</p>
+      </div>
+      <figure class="shell opening-demo">
+        <video controls playsinline preload="metadata" poster="assets/task-2.png" aria-label="Robo-COP real-world lid removal and object transfer after policy adoption"><source src="assets/real-2-adopted-t50.mp4" type="video/mp4"></video>
+        <figcaption><span>Learning after deployment</span> Real-world lid removal and object transfer · Trial 50, after policy adoption</figcaption>
+      </figure>
+    </section>
+
+    <section class="section overview-section" aria-labelledby="overview-title"><div class="shell">
+      <div class="section-heading"><p class="section-index">Overview</p><h2 id="overview-title">Improve the policy.<br>Rethink how to use it.</h2></div>
+      <div class="overview-copy"><p>A robot orchestrator can work around a policy’s failures using scripted motion. But when the policy improves, the orchestrator needs to reconsider what it learned about that policy.</p><p>Robo-COP connects these updates. It curates skill demonstrations from deployment, including useful segments of failed trials, trains when warranted, and verifies candidates before adoption. It then revisits policy-dependent memory for the next deployment.</p></div>
+      <div class="finding-row"><div><span>10 simulation tasks</span><strong>64.8% <i>→</i> 73.8%</strong><p>Mean held-out success</p></div><div><span>3 real-world tasks</span><strong>38.3% <i>→</i> 50.0%</strong><p>Mean held-out success</p></div></div>
+      <p class="scope-note">Compared with the same adaptive harness using a frozen policy. Evaluation uses held-out initializations after deployment.</p>
+    </div></section>
+
+    <section id="method" class="section method-section"><div class="shell">
+      <div class="section-heading"><p class="section-index">The harness</p><div><h2>Method</h2><p>The orchestrator is the language model that writes robot programs. The harness is the set of tools, task memory, and execution loop around it.</p></div></div>
+      <div class="method-grid"><div class="harness-copy"><p>The agent can call the policy to pick up an object, or use perception to find a grasp and move the arm with scripted primitives. A visual monitor checks execution and sends feedback when revised code is needed.</p><p>Episode reflection updates task memory. Policy actions and scripted motions are recorded in a shared action stream. The curator extracts skill demonstrations from successful and failed episodes and checks them before adding them to the training data.</p><p>A controller decides when to train and names target skills for verification. Training uses all curated data accumulated so far. Verification checks task success, previously admitted skills, and whether the candidate itself performed its targets.</p><p>After adoption or reversion, advice that discourages VLA use is marked unverified for the policy now in service. Its history is kept, so the orchestrator can retest the skill rather than assume the old advice still applies.</p><a class="harness-trace-link" href="#deployment">Explore execution traces →</a></div><figure class="method-figure"><img src="assets/nested-loops.png" width="1560" height="1220" loading="lazy" alt="Robo-COP inner loop updates orchestration memory; the outer loop curates data, trains and verifies candidate policies, and revises memory after policy selection."><figcaption>Episode reflection updates memory; curated execution data trains the policy.</figcaption></figure></div>
+      <div class="curation-strip"><div><p class="section-index">Training data</p><h3>A failed trial can still contain a useful grasp.</h3><p>A text judge labels skills from code and execution feedback. A video judge checks the proposed labels. Segments are kept when the text judge accepts them and the video shows success or useful partial progress.</p></div><figure><a href="assets/curation-examples.png" target="_blank" rel="noopener noreferrer" aria-label="Open data curation examples at full size"><img src="assets/curation-examples.png" width="2000" height="856" loading="lazy" alt="Two curated skill examples, each with initial and final frames, source motions, generated instruction, and curation outcome."></a><figcaption>Selected segments and their generated instructions. Click to enlarge.</figcaption></figure></div>
+    </div></section>
+
+    <section id="results" class="section results-section"><div class="shell"><div class="section-heading"><p class="section-index">Held-out evaluation</p><div><h2>Simulation results</h2><p>After deployment, each system is tested on 50 new initializations per task with no further updates. Mean success is 73.8% for Robo-COP, 64.8% for the frozen-policy control, and 65.8% for fixed-schedule updates. ASPIRE reaches 54.0%; the standalone VLA reaches 28.0%.</p></div></div><figure class="results-figure"><a href="assets/heldout-results.png" target="_blank" rel="noopener noreferrer" aria-label="Open the held-out results figure at full size"><img src="assets/heldout-results.png" width="2000" height="768" loading="lazy" alt="Held-out success over ten simulation tasks and the task mean for five methods. Robo-COP has the highest plotted mean."></a><figcaption>Whiskers show 95% beta-posterior intervals for each success rate. They do not measure variation across independent deployment runs. Select to enlarge.</figcaption></figure></div></section>
+
+    <section id="pipeline" class="section pipeline-section"><div class="shell">
+      <div class="pipeline-heading"><div><p class="section-index">Method overview</p><h2>Step-by-step walkthrough</h2></div><div class="pipeline-controls"><button type="button" id="pipeline-play" aria-pressed="false">Autoplay walkthrough</button><button type="button" id="pipeline-previous" aria-label="Previous pipeline step" disabled>← Back</button><button type="button" id="pipeline-next" aria-label="Next pipeline step">Next →</button><button type="button" id="pipeline-reset">Restart</button></div></div>
+      <p class="walkthrough-help">Explore at your own pace with Back / Next, or choose Autoplay to watch every stage in sequence. Each video finishes before the next stage begins.</p>
+      <div class="pipeline-map" aria-label="Deployment and policy learning loop">
+        <svg viewBox="0 0 1100 380" preserveAspectRatio="none" aria-hidden="true" class="pipeline-wires"><defs><marker id="flow-tip" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="context-stroke"/></marker></defs>
+          <path data-flow="1" d="M315 100 H391"/><path data-flow="2" d="M685 100 H761"/><path data-flow="3" d="M920 154 V225"/><path data-flow="4" d="M785 286 H709"/><path data-flow="5" d="M415 286 H339"/><path data-flow="0" d="M180 225 V154"/>
+          <path class="inner-loop" d="M540 44 V18 H180 V44"/>
+          <text x="360" y="13" text-anchor="middle">memory for the next episode</text>
+        </svg>
+        <button type="button" class="pipeline-node is-current is-revealed" data-pipeline="0" aria-pressed="true"><span>A / Deployment</span><strong>Write code &amp; execute</strong><small>Perception + primitives <i>∥</i> VLA</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="1" aria-pressed="false"><span>A / Episode reflection</span><strong>Update task memory</strong><small>What worked · What failed</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="2" aria-pressed="false"><span>B / Data curation</span><strong>Extract skill segments</strong><small>Shared action stream → demonstrations</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="3" aria-pressed="false"><span>B / Training decision</span><strong>Train or wait</strong><small>Data + failures + training history</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="4" aria-pressed="false"><span>C / Candidate verification</span><strong>Adopt or revert</strong><small>Task safeguards + skill review</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="5" aria-pressed="false"><span>C / Policy integration</span><strong>Revisit policy advice</strong><small>Return to deployment ↗</small></button>
+      </div>
+      <div class="pipeline-detail"><div id="pipeline-media" class="pipeline-media"></div><div class="pipeline-evidence"><p id="pipeline-source" class="section-index"></p><h3 id="pipeline-title"></h3><p id="pipeline-description"></p><div id="pipeline-record"></div></div></div>
+      <p class="scope-note" id="pipeline-status" aria-live="polite">Step 1 of 6. Select any component to inspect it.</p>
+      <noscript><p>Deployment records policy and scripted actions, reflection updates task memory, and curation extracts demonstrations. The controller requests training when warranted. Verification selects the deployed policy; memory advice is revised after adoption or reversion.</p></noscript>
+    </div></section>
+
+    <div id="simulation" class="group-heading shell"><h2>Learning during simulation deployment</h2><p>Inspect a simulation run through videos, generated code, and training decisions. Phase summaries report raw successes; rolling curves show fluctuations within the run.</p></div>
+
+    <section id="deployment" class="section deployment-section">
+      <div class="shell">
+        <div class="section-heading"><p class="section-index">Simulation / 100 trials</p><div><h2>Bananas out of bin</h2><p>The harness writes Python that calls either the VLA or motion primitives. Play a trial to follow its code, or open the monitor tab to see its feedback. Training starts after trial 45; the adopted policy serves from trial 71.</p></div></div>
+        <div class="run-summary"><div><span>BEFORE TRAINING · TRIALS 1–45</span><strong>51.1<small>%</small></strong><p>23 / 45 completed</p></div><div><span>CANDIDATE EVALUATION · 46–70</span><strong>68.0<small>%</small></strong><p>17 / 25 completed</p></div><div><span>AFTER ADOPTION · 71–100</span><strong>86.7<small>%</small></strong><p>26 / 30 completed</p></div></div>
+        <div class="timeline-panel">
+          <div class="viewer-layout">
+            <div class="video-stage"><video id="sim-video" controls playsinline preload="metadata" poster="assets/banana-08.jpg" aria-label="Selected simulation trial"><source src="assets/banana-08.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="player-state"><span id="current-action">Outside VLA call</span><span id="current-turn">Code 1</span></div><div id="turn-picker" class="turn-picker" role="group" aria-label="Jump to a generated program"></div><div class="video-context"><span id="sim-phase" class="phase-tag">Early deployment</span><p class="trial-kicker" id="sim-trial">TRIAL 08 / 100</p><h3 id="sim-title">A scripted success</h3><p id="sim-description">The generated program samples a grasp and uses scripted motions to move the bananas.</p><p id="sim-outcome" class="outcome outcome-success">Task completed</p></div></div>
+            <aside class="agent-inspector" aria-label="Recorded code, monitor, and decisions"><div class="inspector-heading"><span class="trace-dot"></span> INSIDE THE ORCHESTRATOR <span id="trace-position">Trial 8</span></div><div class="trace-tabs" role="group" aria-label="Inspect the execution"><button type="button" class="active" data-trace-tab="code" aria-pressed="true">Generated code</button><button type="button" data-trace-tab="monitor" aria-pressed="false">Visual monitor</button></div><div id="trace-body" class="trace-body" aria-live="polite"></div></aside>
+          </div>
+          <div class="chart-area"><div class="chart-heading"><div><h3>100 deployment trials</h3><p>Rolling success rate with every trial shown below. Choose a 10- or 20-trial window.</p></div><div class="chart-key"><span><i class="key-success"></i> success</span><span><i class="key-failure"></i> failure</span><span><i class="key-candidate"></i> candidate evaluation</span></div></div><div id="trial-chart" class="trial-chart" role="img" aria-label="Success and failure across all 100 trials of Bananas out of bin. Candidate evaluation runs from trial 46 to 70; the adopted policy serves from trial 71."></div>
+            <div class="clip-buttons" role="group" aria-label="Select a recorded trial"><button type="button" class="clip-button active" data-trial="8" aria-pressed="true"><span>08</span> Scripted success</button><button type="button" class="clip-button" data-trial="30" aria-pressed="false"><span>30</span> Stalled attempt</button><button type="button" class="clip-button" data-trial="48" aria-pressed="false"><span>48</span> Test candidate</button><button type="button" class="clip-button" data-trial="72" aria-pressed="false"><span>72</span> Later failure</button><button type="button" class="clip-button" data-trial="92" aria-pressed="false"><span>92</span> Mixed execution</button></div>
+          </div>
+          <div class="decision-row" role="group" aria-label="Inspect recorded decisions"><button type="button" data-decision="45"><span>AFTER TRIAL 45</span><strong>Train ↗</strong><p>43 curated episodes. Learn banana pickup and table placement.</p></button><button type="button" data-decision="70"><span>AFTER TRIAL 70</span><strong>Adopt ↗</strong><p>17 / 25 successes and a CONFIRM review. Deploy from trial 71.</p></button><button type="button" data-decision="85"><span>AFTER TRIAL 85</span><strong>Wait ↗</strong><p>The controller cites code errors and stalls; it returns WAIT.</p></button><button type="button" data-decision="100"><span>AFTER TRIAL 100</span><strong>Wait ↗</strong><p>The controller again returns WAIT.</p></button></div>
+        </div>
+        <p class="scope-note">Phase success rates from one deployment run.</p>
+      </div>
+    </section>
+
+    <section id="real-improvement" class="section real-progress-section"><div class="shell">
+      <div class="section-heading"><p class="section-index">Real world / 60 seconds</p><div><h2>Real-world deployment</h2><p>For lid removal and object transfer (60-second budget), the controller requests training after trial 30, targeting lid removal and two object-transfer skills. The candidate is evaluated over trials 31–40 and adopted for trial 41 onward. The videos show one attempt before training and one after adoption.</p></div></div>
+      <div class="run-summary"><div><span>SHARED EXPERIENCE · 1–30</span><strong>26.7<small>%</small></strong><p>8 / 30 successful trials</p></div><div><span>CANDIDATE EVALUATION · 31–40</span><strong>40<small>%</small></strong><p>4 / 10 successful trials</p></div><div><span>AFTER ADOPTION · 41–50</span><strong>70<small>%</small></strong><p>7 / 10 successes · Frozen: 5 / 10</p></div></div>
+      <div class="real-progress-grid"><figure class="recovery-video"><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Real-world Task 2 trial 30 before training, unsuccessful"><source src="assets/real-2-before-t30.mp4" type="video/mp4"></video><figcaption class="media-caption"><strong>BEFORE TRAINING · TRIAL 30</strong><span>60-second budget exhausted</span></figcaption></figure><figure class="recovery-video"><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Real-world Task 2 trial 50 after adoption, successful"><source src="assets/real-2-adopted-t50.mp4" type="video/mp4"></video><figcaption class="media-caption"><strong>AFTER ADOPTION · TRIAL 50</strong><span>Task completed</span></figcaption></figure></div>
+      <div class="real-progress-chart"><div class="chart-heading"><div><h3>All 50 deployment trials</h3><p>Both methods share trials 1–30. The same rolling window is used for both curves.</p></div><div class="chart-key"><span class="ours-key">— Robo-COP</span><span class="frozen-key">– – Frozen policy</span></div></div><div id="real-trial-chart" role="img" aria-label="Task 2 deployment success, with training after trial 30 and adoption after trial 40. Final ten trials: Robo-COP 70 percent, frozen policy 50 percent."></div></div>
+      <div class="real-training-record"><div><span class="decision-badge decision-train">TRAIN · AFTER TRIAL 30</span><h3>Three selected targets</h3><p>30 curated episodes · 135 skill records</p></div><div><p class="skill-chip">pick up the pot lid and put it on the grey towel</p><p class="skill-chip">pick up the red tomato and put it on the white plate</p><p class="skill-chip">pick up the green lime and put it on the white plate</p></div><div><span class="decision-badge">ADOPT · AFTER TRIAL 40</span><p>The recorded verification returns CONFIRM. The adopted policy serves from trial 41.</p></div></div>
+      <p class="scope-note">Across all 50 deployment trials: Robo-COP 19/50 (38%); frozen-policy control 16/50 (32%).</p><p class="heldout-note"><strong>Held-out evaluation.</strong> With policy and memory frozen after learning, Robo-COP succeeds on 14/20 tests (70%), compared with 7/20 (35%) for the frozen-policy control. These are the separate test results reported in the paper.</p>
+    </div></section>
+
+    <section id="recovery" class="section recovery-section"><div class="shell">
+      <div class="section-heading"><p class="section-index">Cup recycling / Trial 72</p><div><h2>Failure recovery</h2><p>The visual monitor reports that the cup is not secure. The harness writes another program to regrasp it and continues within the same episode.</p></div></div>
+      <div class="recovery-layout"><div class="recovery-video"><video controls playsinline preload="none" poster="assets/sim-72.jpg" aria-label="Simulation trial 72: failed grasp followed by revised code and successful task completion"><source src="assets/sim-72.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="media-caption"><strong>TRIAL 72</strong><span>One recorded recovery · final task success</span></div></div><div class="recovery-sequence"><div class="sequence-item"><span>01</span><p><strong>Grasp check fails.</strong> The cup is not secured after the initial policy call.</p></div><div class="sequence-item"><span>02</span><p><strong>Monitor stops the action.</strong> It requests revised code to close the gripper, verify the grasp, and lift.</p></div><div class="sequence-item"><span>03</span><p><strong>Code is revised.</strong> The next program includes a grasp check and another attempt.</p></div><div class="sequence-item"><span>04</span><p><strong>Task succeeds.</strong> The episode ends with the cup placed in the bin.</p></div></div></div>
+      <p class="scope-note">One episode, with code revisions between attempts.</p>
+    </div></section>
+
+    <section id="real-world" class="section real-section"><div class="shell"><div class="section-heading"><p class="section-index">Real-world videos</p><div><h2>Real-world successes and failures</h2><p>Compare completed and unsuccessful attempts across three real-world tasks. Select an outcome below each video.</p></div></div>
+      <div class="real-grid">
+        <article class="real-card" data-real-task="1"><div class="card-header"><span>TASK 01 <i></i> 40 S</span><h3>Pot and tape → towel</h3><p>Put both the pot and tape on the towel.</p></div><video controls playsinline preload="none" poster="assets/task-1.png" aria-label="Task one unsuccessful robot trial"><source src="assets/real-1-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task one outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 33 · task not completed</p></div></article>
+        <article class="real-card" data-real-task="2"><div class="card-header"><span>TASK 02 <i></i> 60 S</span><h3>Lid and objects → towel / plate</h3><p>Set down the lid, then move the pot contents to the white plate.</p></div><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Task two unsuccessful robot trial"><source src="assets/real-2-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task two outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 48 · task not completed</p></div></article>
+        <article class="real-card" data-real-task="3"><div class="card-header"><span>TASK 03 <i></i> 90 S</span><h3>Mustard and vegetables</h3><p>Put the mustard in the bowl and the vegetables in the pots.</p></div><video controls playsinline preload="none" poster="assets/task-3.png" aria-label="Task three unsuccessful robot trial"><source src="assets/real-3-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task three outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 13 · task not completed</p></div></article>
+      </div>
+    </div></section>
+
+    <section id="citation" class="section citation-section"><div class="shell"><p class="section-index">Reference</p><h2>Citation</h2><pre><code>@article{zhang2026robocop,
+  title={Co-Evolving Robot Orchestrators and Policies through Deployment},
+  author={Zhang, Xilun and Wang, Maggie and Bauer, Erik and Yu, Hong-Xing
+          and Huang, Huang and Wu, Jiajun and Pavone, Marco},
+  journal={arXiv preprint arXiv:2610.09228},
+  year={2026},
+  url={https://arxiv.org/abs/2610.09228}
+}</code></pre></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-row"><strong>ROBO·COP</strong><a href="https://arxiv.org/abs/2610.09228">arXiv:2610.09228 ↗</a></div></footer>
+</body>
+</html>
