@@ -27,5 +27,5 @@ All asset URLs are relative, so the site works at a repository subpath. No depen
 - `trace-data.js`: original recorded evidence.
 - `assets/`: project figures and videos.
 
-Affiliations are shown collectively; individual author superscripts should be added after confirming the final affiliation mapping. No code-release repository is linked until its destination is confirmed.
+Author superscripts and equal advising follow the arXiv v1 source. Author names link to their verified personal or faculty homepages. Background clips autoplay muted, with a pause control and reduced-motion support. No code-release repository is linked until its destination is confirmed.
 

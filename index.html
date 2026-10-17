@@ -6,9 +6,9 @@
   <meta name="referrer" content="no-referrer">
   <meta name="description" content="Robo-COP learns from robot deployment by coordinating a policy and the orchestration that uses it.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
-  <title>Robo-COP — Co-Evolving Robot Orchestrators and Policies</title>
+  <title>Co-Evolving Robot Orchestrators and Policies through Deployment</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d3936'/%3E%3Cpath d='M17 32a15 15 0 0 1 26-10m4 10a15 15 0 0 1-26 10' fill='none' stroke='%23e4a578' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%23fff'/%3E%3C/svg%3E">
-  <meta property="og:title" content="Robo-COP — Learning after deployment">
+  <meta property="og:title" content="Co-Evolving Robot Orchestrators and Policies through Deployment">
   <meta property="og:description" content="Co-Evolving Robot Orchestrators and Policies through Deployment. Research from Stanford University and NVIDIA Research.">
   <meta name="citation_title" content="Co-Evolving Robot Orchestrators and Policies through Deployment">
   <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.09228">
@@ -19,6 +19,7 @@
   <script defer src="app.js"></script>
   <script defer src="pipeline.js"></script>
   <script defer src="video-controls.js"></script>
+  <script defer src="hero.js"></script>
   
 </head>
 <body>
@@ -34,19 +35,29 @@
 
   <main id="top">
     <section class="hero" aria-label="Robo-COP project introduction">
+      <div class="hero-mosaic" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="metadata" tabindex="-1"><source src="assets/hero-sim-1.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" tabindex="-1"><source src="assets/hero-sim-2.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" tabindex="-1"><source src="assets/hero-sim-3.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" tabindex="-1"><source src="assets/hero-real-1.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" tabindex="-1"><source src="assets/hero-real-2.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline preload="metadata" tabindex="-1"><source src="assets/hero-real-3.mp4" type="video/mp4"></video>
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
       <div class="shell hero-content">
-        <p class="overline">Robot learning · arXiv 2026</p>
-        <h1>Robo-COP<span>Co-Evolving Robot Orchestrators and<br class="desktop-break"> Policies through Deployment</span></h1>
-        <p class="authors">Xilun Zhang <span>·</span> Maggie Wang <span>·</span> Erik Bauer <span>·</span> Hong-Xing Yu<br> Huang Huang <span>·</span> Jiajun Wu <span>·</span> Marco Pavone</p>
-        <p class="affiliations">Stanford University &nbsp; / &nbsp; NVIDIA Research</p>
+        <h1>Co-Evolving Robot Orchestrators and Policies through Deployment</h1>
+        <p class="authors"><a href="https://xilunzhangrobo.github.io/">Xilun Zhang<sup>1</sup></a> <a href="https://maggiewang.org/">Maggie Wang<sup>1</sup></a> <a href="https://erikbr01.github.io/">Erik Bauer<sup>1</sup></a> <a href="https://kovenyu.com/">Hong-Xing Yu<sup>1</sup></a><br> <a href="https://qingh097.github.io/">Huang Huang<sup>1,†</sup></a> <a href="https://jiajunwu.com/">Jiajun Wu<sup>1,†</sup></a> <a href="https://stanfordasl.github.io/team/prof-marco-pavone/">Marco Pavone<sup>1,2,†</sup></a></p>
+        <p class="affiliations"><span><sup>1</sup> Stanford University</span> <span><sup>2</sup> NVIDIA Research</span></p>
+        <p class="author-notes"><sup>†</sup> Equal advising</p>
         <div class="hero-actions"><a class="button button-dark" href="https://arxiv.org/abs/2610.09228">Read the paper <span aria-hidden="true">↗</span></a><a class="button" href="https://arxiv.org/pdf/2610.09228">PDF <span aria-hidden="true">↗</span></a><a class="button" href="#simulation">Explore deployment <span aria-hidden="true">↓</span></a></div>
         <p class="hero-intro">A robot should improve with experience.<br>Robo-COP learns from deployment to update both its policy<br class="desktop-break"> and the orchestrator that decides how to use it.</p>
       </div>
+      <button class="hero-motion" type="button" aria-pressed="false">Pause background videos</button>
+    </section>
       <figure class="shell opening-demo">
         <video controls playsinline preload="metadata" poster="assets/task-2.png" aria-label="Robo-COP real-world lid removal and object transfer after policy adoption"><source src="assets/real-2-adopted-t50.mp4" type="video/mp4"></video>
         <figcaption><span>Learning after deployment</span> Real-world lid removal and object transfer · Trial 50, after policy adoption</figcaption>
       </figure>
-    </section>
 
     <section class="section overview-section" aria-labelledby="overview-title"><div class="shell">
       <div class="section-heading"><p class="section-index">Overview</p><h2 id="overview-title">Improve the policy.<br>Rethink how to use it.</h2></div>
