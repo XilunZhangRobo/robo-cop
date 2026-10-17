@@ -1,0 +1,61 @@
+[
+  {
+    "turn": 0,
+    "instruction": "pick up the coffee cup",
+    "keep": true,
+    "reason": "The robot successfully grasps the coffee cup and lifts it off the table.",
+    "stage_a_verdict": "OK",
+    "stage_a_reason": "The code opens the gripper, approaches, grasps, checks aperture successfully, and lifts the coffee cup as confirmed by the judge's assessment noting the robot held the cup.",
+    "stage_b_verdict": "SUCCESS",
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "episode": "RecycleCupClutterRandomizedTask_t07_0909_121936_p1794437",
+    "trial": 7,
+    "kind": "Scripted code",
+    "file": "curation-scripted-keep",
+    "label": "Scripted \u00b7 kept",
+    "calls": "open_gripper \u2192 goto_pregrasp \u2192 goto_pose \u2192 close_gripper \u2192 goto_pose"
+  },
+  {
+    "turn": 0,
+    "instruction": "pick up the coffee cup",
+    "keep": false,
+    "reason": "The robot knocked over the green bin and banana while attempting the action, and the coffee cup is glitching through the cream bin.",
+    "stage_a_verdict": "OK",
+    "stage_a_reason": "The gripper opens, approaches the coffee cup via pregrasp, descends, grasps, and lifts vertically, successfully picking it up.",
+    "stage_b_verdict": "FAILED",
+    "segment_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "episode": "RecycleCupClutterRandomizedTask_t02_0909_114741_p1794437",
+    "trial": 2,
+    "kind": "Scripted code",
+    "file": "curation-scripted-reject",
+    "label": "Scripted \u00b7 rejected",
+    "calls": "open_gripper \u2192 goto_pregrasp \u2192 goto_pose \u2192 close_gripper \u2192 goto_pose"
+  },
+  {
+    "turn": 9,
+    "instruction": "move the gripper up and away from the beige container",
+    "keep": false,
+    "reason": "Instead of moving up and away from the beige container, the gripper moves downward and stays directly at the rim of the container.",
+    "stage_a_verdict": "FAILED",
+    "stage_a_reason": "The visual judge observed 'the gripper remains right at the bin's rim while the coffee cup is pinned or hanging from the opposite rim'.",
+    "stage_b_verdict": "FAILED",
+    "episode": "RecycleCupClutterRandomizedTask_t02_0909_114741_p1794437",
+    "trial": 2,
+    "kind": "VLA",
+    "file": "curation-vla-reject",
+    "label": "VLA \u00b7 rejected",
+    "calls": "execute_vla(\"move the gripper up and away from the beige container\", max_steps=2700)"
+  }
+]
