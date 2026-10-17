@@ -62,3 +62,13 @@ h1{font-size:68px;font-weight:750;letter-spacing:-.055em;margin:18px auto 26px;c
 .opening-demo{margin-top:48px}
 @media(max-width:800px){.hero-content{padding:58px 0 70px}.hero h1{font-size:36px}.hero .authors{font-size:18px}.authors a{margin:0 6px}.hero .affiliations{font-size:14px}}
 @media(max-width:520px){.hero h1{font-size:30px}.hero .authors br{display:none}.hero .hero-intro{font-size:15px}.hero-content{padding-top:42px}}
+
+/* Consistent research sections and readable captions. */
+.overview-section>.shell{display:block;max-width:860px}.overview-section .section-heading{margin-bottom:20px}.overview-copy{max-width:none}.overview-copy p{font-size:17px;line-height:1.8}
+.section-heading{display:block;max-width:none;margin-bottom:28px}.section-heading h2,.group-heading h2,.pipeline-heading h2{font-size:30px;font-weight:600;letter-spacing:-.025em;line-height:1.25}.section-heading p:not(.section-index),.group-heading>p{max-width:860px;font-size:16px;line-height:1.75;color:#50575d;margin-top:14px}
+.section-heading .section-index{font-size:12px;text-transform:none;letter-spacing:0;color:#596168;margin-bottom:8px}.section{padding:54px 0}.group-heading{padding-top:54px}.group-heading+.section{padding-top:30px}
+.method-grid{gap:36px}.harness-copy p{font-size:15px;line-height:1.8}.curation-strip h3{font-size:21px}.curation-strip p{font-size:15px;line-height:1.75}
+figcaption,.scope-note{font-size:13px;color:#596168;line-height:1.65}.pipeline-evidence .section-index{font-size:12px;text-transform:none;letter-spacing:0}.walkthrough-help{font-size:14px;color:#596168}.card-header h3{font-size:20px}.real-card{border-radius:4px;box-shadow:none}.hero .hero-actions{margin-bottom:0}
+@media(max-width:800px){.section{padding:38px 0}.section-heading h2,.group-heading h2,.pipeline-heading h2{font-size:26px}.overview-copy p{font-size:16px}.group-heading{padding-top:38px}}
+
+.code-line code{color:#344052}.line-number{color:#657181}.code-line .code-tool{color:#386247}.code-line .code-vla{color:#30539a}
