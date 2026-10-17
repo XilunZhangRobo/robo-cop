@@ -47,18 +47,18 @@ h1{font-size:68px;font-weight:750;letter-spacing:-.055em;margin:18px auto 26px;c
 
 /* Paper heading over the original deployment footage. */
 .hero{position:relative;isolation:isolate;overflow:hidden;background:#17232a;color:white}
-.hero-mosaic{z-index:-2;opacity:1;gap:3px}
-.hero-shade{z-index:-1;background:rgba(10,19,26,.72)}
-.hero-content{padding:76px 0 80px}
-.hero h1{max-width:940px;font-size:48px;line-height:1.18;letter-spacing:-.035em;font-weight:650;color:white;margin:0 auto 28px;text-wrap:balance}
-.hero .authors{max-width:850px;font-size:18px;line-height:2.1;margin:0 auto 12px}
+.hero-mosaic{z-index:0;opacity:1;gap:3px;pointer-events:none}
+.hero-shade{z-index:1;background:linear-gradient(90deg,rgba(10,19,26,.78),rgba(10,19,26,.94) 30%,rgba(10,19,26,.94) 70%,rgba(10,19,26,.78));pointer-events:none}
+.hero-content{position:relative;z-index:2;padding:72px 0 74px}
+.hero h1{max-width:1000px;font-size:54px;line-height:1.18;letter-spacing:-.035em;font-weight:700;color:white;margin:0 auto 28px;text-wrap:balance}
+.hero .authors{max-width:950px;font-size:22px;line-height:2.1;margin:0 auto 12px}
 .authors a{display:inline-block;color:white;margin:0 10px;text-decoration:none;text-underline-offset:4px}
 .authors a:hover,.authors a:focus-visible{text-decoration:underline}
 .authors sup,.affiliations sup{font-size:.65em;margin-left:2px}
 .hero .affiliations{color:#f3f4f5;font-size:16px}.affiliations span{display:inline-block;margin:0 12px}
 .author-notes{font-size:13px;color:#e0e4e7;margin:8px 0 0}
 .hero .hero-intro{color:#f0f2f4;font-size:17px}.hero .button{background:white;color:#243c4b;border-color:white}.hero .button:hover{background:#e7edf1}.hero .hero-actions{margin:25px 0}
-.hero-motion{position:absolute;right:20px;bottom:14px;background:rgba(0,0,0,.35);color:white;border:1px solid #ffffff70;border-radius:4px;padding:6px 10px;font:inherit;font-size:11px;cursor:pointer}
+.hero-motion{z-index:3;position:absolute;right:20px;bottom:14px;background:rgba(0,0,0,.35);color:white;border:1px solid #ffffff70;border-radius:4px;padding:6px 10px;font:inherit;font-size:11px;cursor:pointer}
 .opening-demo{margin-top:48px}
-@media(max-width:800px){.hero-content{padding:58px 0 70px}.hero h1{font-size:36px}.hero .authors{font-size:16px}.authors a{margin:0 6px}.hero .affiliations{font-size:14px}}
+@media(max-width:800px){.hero-content{padding:58px 0 70px}.hero h1{font-size:36px}.hero .authors{font-size:18px}.authors a{margin:0 6px}.hero .affiliations{font-size:14px}}
 @media(max-width:520px){.hero h1{font-size:30px}.hero .authors br{display:none}.hero .hero-intro{font-size:15px}.hero-content{padding-top:42px}}
