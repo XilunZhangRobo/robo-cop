@@ -13,12 +13,13 @@
   <meta name="citation_title" content="Co-Evolving Robot Orchestrators and Policies through Deployment">
   <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.09228">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="paper.css?v=method-figure-2">
+  <link rel="stylesheet" href="paper.css?v=restored-flow">
   <script defer src="trace-data.js"></script>
   <script defer src="curves.js"></script>
   <script defer src="app.js"></script>
   <script defer src="hero.js"></script>
   <script defer src="curation.js"></script>
+  <script defer src="pipeline.js?v=restored-flow"></script>
 
 </head>
 <body>
@@ -62,15 +63,36 @@
 
     <section id="method" class="section method-section"><div class="shell">
       <div class="section-heading"><h2>Method</h2></div>
-      <figure class="paper-method-figure"><a href="assets/method-paper.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open Figure 2 at full size"><img src="assets/method-paper.png" width="3200" height="1522" loading="lazy" alt="Figure 2: Robo-COP deployment-to-learning loop, with adaptive deployment orchestration, agentic policy data curation, and policy verification."></a><figcaption><strong>Figure 2. The Robo-COP deployment-to-learning loop.</strong> A: The orchestrator mixes scripted motion and VLA calls, logs one action stream, and updates memory. B: Judges segment the stream into labeled skills; a controller decides when to train. C: Candidates are verified before adoption, and policy-dependent memory is revised.</figcaption></figure>
+      <figure class="paper-method-figure"><a href="assets/method-paper.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open Figure 2 at full size"><img src="assets/method-paper.png" width="3200" height="1522" loading="lazy" alt="Figure 2: Robo-COP deployment-to-learning loop, with adaptive deployment orchestration, agentic policy data curation, and policy verification."></a></figure>
       <details id="curation" class="curation-examples extra-records">
         <summary>Explore skill demonstration curation</summary>
+    <section id="pipeline" class="pipeline-section"><div>
+      <div class="pipeline-heading"><div><h2>Deployment and policy update cycle</h2></div><div class="pipeline-controls"><button type="button" id="pipeline-play" aria-pressed="false">Autoplay walkthrough</button><button type="button" id="pipeline-previous" aria-label="Previous pipeline step" disabled>← Back</button><button type="button" id="pipeline-next" aria-label="Next pipeline step">Next →</button><button type="button" id="pipeline-reset">Restart</button></div></div>
+      <p class="walkthrough-help">Select a stage to view the corresponding execution record.</p>
+      <div class="pipeline-map" aria-label="Deployment and policy learning loop">
+        <svg viewBox="0 0 1100 380" preserveAspectRatio="none" aria-hidden="true" class="pipeline-wires"><defs><marker id="flow-tip" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="context-stroke"/></marker></defs>
+          <path data-flow="1" d="M315 100 H391"/><path data-flow="2" d="M685 100 H761"/><path data-flow="3" d="M920 154 V225"/><path data-flow="4" d="M785 286 H709"/><path data-flow="5" d="M415 286 H339"/><path data-flow="0" d="M180 225 V154"/>
+          <path class="inner-loop" d="M540 44 V18 H180 V44"/>
+          <text x="360" y="13" text-anchor="middle">memory for the next episode</text>
+        </svg>
+        <button type="button" class="pipeline-node is-current is-revealed" data-pipeline="0" aria-pressed="true"><span>A / Deployment</span><strong>Write code &amp; execute</strong><small>Perception + primitives <i>∥</i> VLA</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="1" aria-pressed="false"><span>A / Episode reflection</span><strong>Update task memory</strong><small>What worked · What failed</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="2" aria-pressed="false"><span>B / Data curation</span><strong>Extract skill segments</strong><small>Shared action stream → demonstrations</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="3" aria-pressed="false"><span>B / Training decision</span><strong>Train or wait</strong><small>Data + failures + training history</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="4" aria-pressed="false"><span>C / Candidate verification</span><strong>Adopt or revert</strong><small>Task safeguards + skill review</small></button>
+        <button type="button" class="pipeline-node" data-pipeline="5" aria-pressed="false"><span>C / Policy integration</span><strong>Revisit policy advice</strong><small>Return to deployment ↗</small></button>
+      </div>
+      <div class="pipeline-detail"><div id="pipeline-media" class="pipeline-media"></div><div class="pipeline-evidence"><p id="pipeline-source" class="section-index"></p><h3 id="pipeline-title"></h3><p id="pipeline-description"></p><div id="pipeline-record"></div></div></div>
+      <p class="scope-note" id="pipeline-status" aria-live="polite">Step 1 of 6. Select any component to inspect it.</p>
+      <noscript><p>Deployment records policy and scripted actions, reflection updates task memory, and curation extracts demonstrations. The controller requests training when warranted. Verification selects the deployed policy; memory advice is revised after adoption or reversion.</p></noscript>
+    </div></section>
+<details><summary>Recorded curation examples</summary>
         <p class="curation-help">Recorded text and video judgments for three execution segments.</p>
         <div class="curation-tabs" role="group" aria-label="Curation examples"><button type="button" data-curation="0" aria-pressed="true">Scripted · kept</button><button type="button" data-curation="1" aria-pressed="false">Scripted · rejected</button><button type="button" data-curation="2" aria-pressed="false">VLA · rejected</button></div>
         <div class="curation-layout"><div><p id="curation-source" class="curation-source"></p><h4 id="curation-instruction"></h4><video id="curation-video" controls playsinline preload="metadata" aria-label="Recorded curation segment"></video><details class="curation-code"><summary>Execution calls</summary><pre id="curation-calls"></pre></details></div>
         <div class="curation-judgments"><section><h4>1. Text judge <span id="curation-text-verdict"></span></h4><p id="curation-text-reason"></p></section><section><h4>2. Video judge <span id="curation-video-verdict"></span></h4><p id="curation-video-reason">Play the segment to reveal the recorded video judgment.</p></section><section><h4>3. Final decision</h4><p id="curation-final" aria-live="polite">Awaiting video review</p></section><button id="curation-reveal" type="button">Show recorded outcomes</button></div></div>
         <p class="scope-note">Original judge outputs; example verdicts are not an independent assessment of judge accuracy. <a href="curation-records.json">Source records</a>.</p>
-      </details>
+      </details></details>
     </div></section>
 
     <section id="results" class="section results-section"><div class="shell"><div class="section-heading"><div><h2>Simulation results</h2><p>Robo-COP reaches 73.8% mean held-out success, versus 64.8% for the frozen-policy baseline and 65.8% for the fixed schedule.</p></div></div><figure class="results-figure"><a href="assets/heldout-results.png" target="_blank" rel="noopener noreferrer" aria-label="Open the held-out results figure at full size"><img src="assets/heldout-results.png" width="2000" height="768" loading="lazy" alt="Held-out success over ten simulation tasks and the task mean for five methods. Robo-COP has the highest plotted mean."></a><figcaption>50 shared held-out initializations per task. Equally weighted ten-task means; whiskers are 95% beta-posterior credible intervals over the fixed task set. <a href="https://arxiv.org/abs/2610.09228">Paper Section 4</a>.</figcaption></figure></div></section>

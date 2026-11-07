@@ -71,5 +71,7 @@
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;syncVisibility();},{threshold:.2}).observe(section);
   document.addEventListener('visibilitychange',syncVisibility);
   reduced.addEventListener('change',()=>{if(reduced.matches)pause();});
+  const disclosure=document.getElementById("curation");
+  disclosure.addEventListener("toggle",()=>{if(disclosure.open){if(!reduced.matches)start();}else pause();});
   render(0);
 })();
