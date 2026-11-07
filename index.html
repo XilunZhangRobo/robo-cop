@@ -13,12 +13,10 @@
   <meta name="citation_title" content="Co-Evolving Robot Orchestrators and Policies through Deployment">
   <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.09228">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="paper.css?v=question-3">
+  <link rel="stylesheet" href="paper.css?v=simple-1">
   <script defer src="trace-data.js"></script>
   <script defer src="curves.js"></script>
   <script defer src="app.js"></script>
-  <script defer src="pipeline.js?v=paper-4"></script>
-  <script defer src="video-controls.js"></script>
   <script defer src="hero.js"></script>
   <script defer src="curation.js"></script>
 
@@ -29,7 +27,7 @@
     <div class="shell nav-row">
       <a class="wordmark" href="#top">ROBO<span>·</span>COP</a>
       <nav aria-label="Page sections">
-        <a href="#method">Method</a><a href="#results">Results</a><a href="#simulation">Deployment</a><a href="#real-world">Videos</a><a href="#citation">Cite</a>
+        <a href="#method">Method</a><a href="#results">Results</a><a href="#real-world">Videos</a><a href="#citation">Cite</a>
       </nav>
     </div>
   </header>
@@ -65,41 +63,37 @@
     <section id="method" class="section method-section"><div class="shell">
       <div class="section-heading"><h2>Method</h2></div>
       <div class="method-grid"><div class="harness-copy"><p>Robo-COP updates both the VLA policy and the adaptive harness that orchestrates its use.</p><p>The harness logs policy and scripted actions as one stream, curates it into skill demonstrations, and verifies each new policy before adoption, revising the memory tied to the old one.</p><a class="harness-trace-link" href="https://arxiv.org/abs/2610.09228">Method — paper Section 3 ↗</a></div><figure class="method-figure"><img src="assets/nested-loops.png" width="1560" height="1220" loading="lazy" alt="Robo-COP inner loop updates orchestration memory; the outer loop curates data, trains and verifies candidate policies, and revises memory after policy selection."><figcaption>The inner loop adapts the harness through episode reflection. The outer loop uses collected experience to update the policy, then revises memory so the harness can reassess the policy’s capabilities.</figcaption></figure></div>
-      <div id="curation" class="curation-examples">
-        <h3>Skill demonstration curation</h3>
+      <details id="curation" class="curation-examples extra-records">
+        <summary>Explore skill demonstration curation</summary>
         <p class="curation-help">Recorded text and video judgments for three execution segments.</p>
         <div class="curation-tabs" role="group" aria-label="Curation examples"><button type="button" data-curation="0" aria-pressed="true">Scripted · kept</button><button type="button" data-curation="1" aria-pressed="false">Scripted · rejected</button><button type="button" data-curation="2" aria-pressed="false">VLA · rejected</button></div>
         <div class="curation-layout"><div><p id="curation-source" class="curation-source"></p><h4 id="curation-instruction"></h4><video id="curation-video" controls playsinline preload="metadata" aria-label="Recorded curation segment"></video><details class="curation-code"><summary>Execution calls</summary><pre id="curation-calls"></pre></details></div>
         <div class="curation-judgments"><section><h4>1. Text judge <span id="curation-text-verdict"></span></h4><p id="curation-text-reason"></p></section><section><h4>2. Video judge <span id="curation-video-verdict"></span></h4><p id="curation-video-reason">Play the segment to reveal the recorded video judgment.</p></section><section><h4>3. Final decision</h4><p id="curation-final" aria-live="polite">Awaiting video review</p></section><button id="curation-reveal" type="button">Show recorded outcomes</button></div></div>
         <p class="scope-note">Original judge outputs; example verdicts are not an independent assessment of judge accuracy. <a href="curation-records.json">Source records</a>.</p>
-      </div>
+      </details>
     </div></section>
 
     <section id="results" class="section results-section"><div class="shell"><div class="section-heading"><div><h2>Simulation results</h2><p>Robo-COP reaches 73.8% mean held-out success, versus 64.8% for the frozen-policy baseline and 65.8% for the fixed schedule.</p></div></div><figure class="results-figure"><a href="assets/heldout-results.png" target="_blank" rel="noopener noreferrer" aria-label="Open the held-out results figure at full size"><img src="assets/heldout-results.png" width="2000" height="768" loading="lazy" alt="Held-out success over ten simulation tasks and the task mean for five methods. Robo-COP has the highest plotted mean."></a><figcaption>50 shared held-out initializations per task. Equally weighted ten-task means; whiskers are 95% beta-posterior credible intervals over the fixed task set. <a href="https://arxiv.org/abs/2610.09228">Paper Section 4</a>.</figcaption></figure></div></section>
 
-    <section id="pipeline" class="section pipeline-section"><div class="shell">
-      <div class="pipeline-heading"><div><h2>Deployment and policy update cycle</h2></div><div class="pipeline-controls"><button type="button" id="pipeline-play" aria-pressed="false">Autoplay walkthrough</button><button type="button" id="pipeline-previous" aria-label="Previous pipeline step" disabled>← Back</button><button type="button" id="pipeline-next" aria-label="Next pipeline step">Next →</button><button type="button" id="pipeline-reset">Restart</button></div></div>
-      <p class="walkthrough-help">Select a stage to view the corresponding execution record.</p>
-      <div class="pipeline-map" aria-label="Deployment and policy learning loop">
-        <svg viewBox="0 0 1100 380" preserveAspectRatio="none" aria-hidden="true" class="pipeline-wires"><defs><marker id="flow-tip" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="context-stroke"/></marker></defs>
-          <path data-flow="1" d="M315 100 H391"/><path data-flow="2" d="M685 100 H761"/><path data-flow="3" d="M920 154 V225"/><path data-flow="4" d="M785 286 H709"/><path data-flow="5" d="M415 286 H339"/><path data-flow="0" d="M180 225 V154"/>
-          <path class="inner-loop" d="M540 44 V18 H180 V44"/>
-          <text x="360" y="13" text-anchor="middle">memory for the next episode</text>
-        </svg>
-        <button type="button" class="pipeline-node is-current is-revealed" data-pipeline="0" aria-pressed="true"><span>A / Deployment</span><strong>Write code &amp; execute</strong><small>Perception + primitives <i>∥</i> VLA</small></button>
-        <button type="button" class="pipeline-node" data-pipeline="1" aria-pressed="false"><span>A / Episode reflection</span><strong>Update task memory</strong><small>What worked · What failed</small></button>
-        <button type="button" class="pipeline-node" data-pipeline="2" aria-pressed="false"><span>B / Data curation</span><strong>Extract skill segments</strong><small>Shared action stream → demonstrations</small></button>
-        <button type="button" class="pipeline-node" data-pipeline="3" aria-pressed="false"><span>B / Training decision</span><strong>Train or wait</strong><small>Data + failures + training history</small></button>
-        <button type="button" class="pipeline-node" data-pipeline="4" aria-pressed="false"><span>C / Candidate verification</span><strong>Adopt or revert</strong><small>Task safeguards + skill review</small></button>
-        <button type="button" class="pipeline-node" data-pipeline="5" aria-pressed="false"><span>C / Policy integration</span><strong>Revisit policy advice</strong><small>Return to deployment ↗</small></button>
-      </div>
-      <div class="pipeline-detail"><div id="pipeline-media" class="pipeline-media"></div><div class="pipeline-evidence"><p id="pipeline-source" class="section-index"></p><h3 id="pipeline-title"></h3><p id="pipeline-description"></p><div id="pipeline-record"></div></div></div>
-      <p class="scope-note" id="pipeline-status" aria-live="polite">Step 1 of 6. Select any component to inspect it.</p>
-      <noscript><p>Deployment records policy and scripted actions, reflection updates task memory, and curation extracts demonstrations. The controller requests training when warranted. Verification selects the deployed policy; memory advice is revised after adoption or reversion.</p></noscript>
+    <section id="real-improvement" class="section real-progress-section"><div class="shell">
+      <div class="section-heading"><p class="section-index">Real world / 60 seconds</p><div><h2>Real-world deployment</h2><p>On the 60-second task, the controller trains at trial 30, verification adopts the candidate, and held-out success doubles from 35% to 70%.</p></div></div>
+      <div class="real-progress-grid"><figure class="recovery-video"><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Real-world Task 2 trial 30 before training, unsuccessful"><source src="assets/real-2-before-t30.mp4" type="video/mp4"></video><figcaption class="media-caption"><strong>BEFORE TRAINING · TRIAL 30</strong><span>60-second budget exhausted</span></figcaption></figure><figure class="recovery-video"><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Real-world Task 2 trial 50 after adoption, successful"><source src="assets/real-2-adopted-t50.mp4" type="video/mp4"></video><figcaption class="media-caption"><strong>AFTER ADOPTION · TRIAL 50</strong><span>Task completed</span></figcaption></figure></div>
+      <details class="extra-records"><summary>Real-world deployment records</summary>      <div class="run-summary"><div><span>SHARED EXPERIENCE · 1–30</span><strong>26.7<small>%</small></strong><p>8 / 30 successful trials</p></div><div><span>CANDIDATE EVALUATION · 31–40</span><strong>40<small>%</small></strong><p>4 / 10 successful trials</p></div><div><span>AFTER ADOPTION · 41–50</span><strong>70<small>%</small></strong><p>7 / 10 successes · Frozen: 5 / 10</p></div></div>
+      <div class="real-progress-chart"><div class="chart-heading"><div><h3>All 50 deployment trials</h3><p>Both methods share trials 1–30. The same rolling window is used for both curves.</p></div><div class="chart-key"><span class="ours-key">— Robo-COP</span><span class="frozen-key">– – Frozen policy</span></div></div><div id="real-trial-chart" role="img" aria-label="Task 2 deployment success, with training after trial 30 and adoption after trial 40. Final ten trials: Robo-COP 70 percent, frozen policy 50 percent."></div></div>
+      <details class="training-details"><summary>Training and verification record</summary><div class="real-training-record"><div><span class="decision-badge decision-train">TRAIN · AFTER TRIAL 30</span><h3>Selected verification skills</h3><p>30 curated episodes · 135 skill records</p></div><div><p class="skill-chip">pick up the pot lid and put it on the grey towel</p><p class="skill-chip">pick up the red tomato and put it on the white plate</p><p class="skill-chip">pick up the green lime and put it on the white plate</p></div><div><span class="decision-badge">ADOPT · AFTER TRIAL 40</span><p>The recorded verification returns CONFIRM. The adopted policy serves from trial 41.</p></div></div></details>
+      <p class="scope-note">Across all 50 deployment trials: Robo-COP 19/50 (38%); frozen-policy control 16/50 (32%).</p></details>
+      <p class="heldout-note"><strong>Held-out evaluation.</strong> Across the three tasks, Robo-COP raises mean held-out success from 38.3% to 50.0%. <a href="https://arxiv.org/abs/2610.09228">Paper Section 4.3</a>.</p>
     </div></section>
 
-    <div id="simulation" class="group-heading shell"><h2>Simulation deployment</h2><p>Videos, generated programs, and controller decisions from a 100-trial deployment run.</p></div>
+    <section id="real-world" class="section real-section"><div class="shell"><div class="section-heading"><div><h2>Real-world task videos</h2><p>Successful and unsuccessful attempts on three real-world tasks.</p></div></div>
+      <div class="real-grid">
+        <article class="real-card" data-real-task="1"><div class="card-header"><span>TASK 01 <i></i> 40 S</span><h3>Pot and tape placement</h3><p>Put both the pot and tape on the towel.</p></div><video controls playsinline preload="none" poster="assets/task-1.png" aria-label="Task one unsuccessful robot trial"><source src="assets/real-1-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task one outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 33 · task not completed</p></div></article>
+        <article class="real-card" data-real-task="2"><div class="card-header"><span>TASK 02 <i></i> 60 S</span><h3>Lid removal and object transfer</h3><p>Set down the lid, then move the pot contents to the white plate.</p></div><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Task two unsuccessful robot trial"><source src="assets/real-2-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task two outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 48 · task not completed</p></div></article>
+        <article class="real-card" data-real-task="3"><div class="card-header"><span>TASK 03 <i></i> 90 S</span><h3>Mustard and vegetable sorting</h3><p>Put the mustard in the bowl and the vegetables in the pots.</p></div><video controls playsinline preload="none" poster="assets/task-3.png" aria-label="Task three unsuccessful robot trial"><source src="assets/real-3-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task three outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 13 · task not completed</p></div></article>
+      </div>
+    </div></section>
 
+<details id="simulation" class="extra-records shell"><summary>Simulation deployment records</summary>
     <section id="deployment" class="section deployment-section">
       <div class="shell">
         <div class="section-heading"><p class="section-index">Simulation / 100 trials</p><div><h2>Bananas out of bin</h2><p>Training starts after trial 45; the adopted policy serves from trial 71.</p></div></div>
@@ -118,29 +112,7 @@
       </div>
     </section>
 
-    <section id="real-improvement" class="section real-progress-section"><div class="shell">
-      <div class="section-heading"><p class="section-index">Real world / 60 seconds</p><div><h2>Real-world deployment</h2><p>On the 60-second task, the controller trains at trial 30, verification adopts the candidate, and held-out success doubles from 35% to 70%.</p></div></div>
-      <div class="run-summary"><div><span>SHARED EXPERIENCE · 1–30</span><strong>26.7<small>%</small></strong><p>8 / 30 successful trials</p></div><div><span>CANDIDATE EVALUATION · 31–40</span><strong>40<small>%</small></strong><p>4 / 10 successful trials</p></div><div><span>AFTER ADOPTION · 41–50</span><strong>70<small>%</small></strong><p>7 / 10 successes · Frozen: 5 / 10</p></div></div>
-      <div class="real-progress-grid"><figure class="recovery-video"><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Real-world Task 2 trial 30 before training, unsuccessful"><source src="assets/real-2-before-t30.mp4" type="video/mp4"></video><figcaption class="media-caption"><strong>BEFORE TRAINING · TRIAL 30</strong><span>60-second budget exhausted</span></figcaption></figure><figure class="recovery-video"><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Real-world Task 2 trial 50 after adoption, successful"><source src="assets/real-2-adopted-t50.mp4" type="video/mp4"></video><figcaption class="media-caption"><strong>AFTER ADOPTION · TRIAL 50</strong><span>Task completed</span></figcaption></figure></div>
-      <div class="real-progress-chart"><div class="chart-heading"><div><h3>All 50 deployment trials</h3><p>Both methods share trials 1–30. The same rolling window is used for both curves.</p></div><div class="chart-key"><span class="ours-key">— Robo-COP</span><span class="frozen-key">– – Frozen policy</span></div></div><div id="real-trial-chart" role="img" aria-label="Task 2 deployment success, with training after trial 30 and adoption after trial 40. Final ten trials: Robo-COP 70 percent, frozen policy 50 percent."></div></div>
-      <details class="training-details"><summary>Training and verification record</summary><div class="real-training-record"><div><span class="decision-badge decision-train">TRAIN · AFTER TRIAL 30</span><h3>Selected verification skills</h3><p>30 curated episodes · 135 skill records</p></div><div><p class="skill-chip">pick up the pot lid and put it on the grey towel</p><p class="skill-chip">pick up the red tomato and put it on the white plate</p><p class="skill-chip">pick up the green lime and put it on the white plate</p></div><div><span class="decision-badge">ADOPT · AFTER TRIAL 40</span><p>The recorded verification returns CONFIRM. The adopted policy serves from trial 41.</p></div></div></details>
-      <p class="scope-note">Across all 50 deployment trials: Robo-COP 19/50 (38%); frozen-policy control 16/50 (32%).</p><p class="heldout-note"><strong>Held-out evaluation.</strong> Across the three tasks, Robo-COP raises mean held-out success from 38.3% to 50.0%. <a href="https://arxiv.org/abs/2610.09228">Paper Section 4.3</a>.</p>
-    </div></section>
-
-    <section id="recovery" class="section recovery-section"><div class="shell">
-      <div class="section-heading"><p class="section-index">Cup recycling / Trial 72</p><div><h2>Failure recovery</h2><p>The visual monitor reports that the cup is not secure. The harness writes another program to regrasp it and continues within the same episode.</p></div></div>
-      <div class="recovery-layout"><div class="recovery-video"><video controls playsinline preload="none" poster="assets/sim-72.jpg" aria-label="Simulation trial 72: failed grasp followed by revised code and successful task completion"><source src="assets/sim-72.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="media-caption"><strong>TRIAL 72</strong><span>Task completed after regrasping</span></div></div><div class="recovery-sequence"><div class="sequence-item"><span>01</span><p><strong>Grasp check fails.</strong> The cup is not secured after the initial policy call.</p></div><div class="sequence-item"><span>02</span><p><strong>Monitor stops the action.</strong> It requests revised code to close the gripper, verify the grasp, and lift.</p></div><div class="sequence-item"><span>03</span><p><strong>Code is revised.</strong> The next program includes a grasp check and another attempt.</p></div><div class="sequence-item"><span>04</span><p><strong>Task succeeds.</strong> The episode ends with the cup placed in the bin.</p></div></div></div>
-
-    </div></section>
-
-    <section id="real-world" class="section real-section"><div class="shell"><div class="section-heading"><div><h2>Real-world task videos</h2><p>Successful and unsuccessful attempts on three real-world tasks.</p></div></div>
-      <div class="real-grid">
-        <article class="real-card" data-real-task="1"><div class="card-header"><span>TASK 01 <i></i> 40 S</span><h3>Pot and tape placement</h3><p>Put both the pot and tape on the towel.</p></div><video controls playsinline preload="none" poster="assets/task-1.png" aria-label="Task one unsuccessful robot trial"><source src="assets/real-1-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task one outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 33 · task not completed</p></div></article>
-        <article class="real-card" data-real-task="2"><div class="card-header"><span>TASK 02 <i></i> 60 S</span><h3>Lid removal and object transfer</h3><p>Set down the lid, then move the pot contents to the white plate.</p></div><video controls playsinline preload="none" poster="assets/task-2.png" aria-label="Task two unsuccessful robot trial"><source src="assets/real-2-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task two outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 48 · task not completed</p></div></article>
-        <article class="real-card" data-real-task="3"><div class="card-header"><span>TASK 03 <i></i> 90 S</span><h3>Mustard and vegetable sorting</h3><p>Put the mustard in the bowl and the vegetables in the pots.</p></div><video controls playsinline preload="none" poster="assets/task-3.png" aria-label="Task three unsuccessful robot trial"><source src="assets/real-3-failure-clean.mp4" type="video/mp4">Your browser does not support video playback.</video><div class="card-footer"><div class="toggle-row" role="group" aria-label="Task three outcome"><button type="button" class="real-toggle" data-outcome="success" aria-pressed="false">Success</button><button type="button" class="real-toggle active" data-outcome="failure" aria-pressed="true">Failure</button></div><p class="real-caption">Trial 13 · task not completed</p></div></article>
-      </div>
-    </div></section>
-
+</details>
     <section id="citation" class="section citation-section"><div class="shell"><h2>Citation</h2><pre><code>@article{zhang2026robocop,
   title={Co-Evolving Robot Orchestrators and Policies through Deployment},
   author={Zhang, Xilun and Wang, Maggie and Bauer, Erik and Yu, Hong-Xing

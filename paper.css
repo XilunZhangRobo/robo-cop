@@ -79,3 +79,5 @@ figcaption,.scope-note{font-size:13px;color:#596168;line-height:1.65}.pipeline-e
 @media(max-width:800px){.curation-layout{grid-template-columns:1fr;gap:24px}}
 
 .research-question{max-width:900px;margin:4px auto 64px;font-size:32px;line-height:1.4;font-weight:600;color:#253b4b;text-align:center;letter-spacing:-.6px;text-wrap:balance}.research-question::before{content:"";display:block;width:44px;height:3px;margin:0 auto 24px;background:#608c94;border-radius:2px}@media(max-width:800px){.research-question{font-size:25px;line-height:1.45;letter-spacing:-.3px;margin:0 auto 44px}.research-question::before{margin-bottom:20px}}
+
+.extra-records{border-top:1px solid #dce0e3;border-bottom:1px solid #dce0e3;padding:20px 0;margin-top:32px;margin-bottom:32px}.extra-records>summary{font-size:18px;font-weight:500;cursor:pointer;color:#253b4b}.extra-records[open]>summary{margin-bottom:28px}.extra-records .section{padding:20px 0}.extra-records .shell{width:100%}.extra-records .extra-records{border:0}.curation-examples.extra-records{padding:20px 0}.real-progress-section .heldout-note{margin-top:28px}
