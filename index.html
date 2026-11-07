@@ -13,7 +13,7 @@
   <meta name="citation_title" content="Co-Evolving Robot Orchestrators and Policies through Deployment">
   <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.09228">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="paper.css?v=simple-1">
+  <link rel="stylesheet" href="paper.css?v=method-figure-2">
   <script defer src="trace-data.js"></script>
   <script defer src="curves.js"></script>
   <script defer src="app.js"></script>
@@ -62,7 +62,7 @@
 
     <section id="method" class="section method-section"><div class="shell">
       <div class="section-heading"><h2>Method</h2></div>
-      <div class="method-grid"><div class="harness-copy"><p>Robo-COP updates both the VLA policy and the adaptive harness that orchestrates its use.</p><p>The harness logs policy and scripted actions as one stream, curates it into skill demonstrations, and verifies each new policy before adoption, revising the memory tied to the old one.</p><a class="harness-trace-link" href="https://arxiv.org/abs/2610.09228">Method — paper Section 3 ↗</a></div><figure class="method-figure"><img src="assets/nested-loops.png" width="1560" height="1220" loading="lazy" alt="Robo-COP inner loop updates orchestration memory; the outer loop curates data, trains and verifies candidate policies, and revises memory after policy selection."><figcaption>The inner loop adapts the harness through episode reflection. The outer loop uses collected experience to update the policy, then revises memory so the harness can reassess the policy’s capabilities.</figcaption></figure></div>
+      <figure class="paper-method-figure"><a href="assets/method-paper.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open Figure 2 at full size"><img src="assets/method-paper.png" width="3200" height="1522" loading="lazy" alt="Figure 2: Robo-COP deployment-to-learning loop, with adaptive deployment orchestration, agentic policy data curation, and policy verification."></a><figcaption><strong>Figure 2. The Robo-COP deployment-to-learning loop.</strong> A: The orchestrator mixes scripted motion and VLA calls, logs one action stream, and updates memory. B: Judges segment the stream into labeled skills; a controller decides when to train. C: Candidates are verified before adoption, and policy-dependent memory is revised.</figcaption></figure>
       <details id="curation" class="curation-examples extra-records">
         <summary>Explore skill demonstration curation</summary>
         <p class="curation-help">Recorded text and video judgments for three execution segments.</p>
